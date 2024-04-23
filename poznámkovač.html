@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local storage</title>
+    <style>
+        body{
+            margin-left: 30px;
+        }
+        #tlacitko{
+            background: burlywood;
+            height: 20px;
+            width: 50px;
+            cursor: pointer;
+            border: 1px solid black;
+        }
+        #vystup{
+            border: 2px solid black;
+            width: 30vh;
+            height: auto;
+        }
+        #vymaz{
+            margin-top: 10px;
+            background: burlywood;
+
+        }
+        @keyframes loader {
+            0% {
+                width: 0%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body onload="zobrazText()">
+    <h1>Poznámkovač</h1>
+    <form name="formik">
+        <textarea name="vstup" id="vstup" placeholder="Zadej poznámku..."></textarea>
+        <div id="tlacitko" onclick="klik()">Uložit</div>
+    </form>
+    <p id="vystup"></p>
+    <button id="vymaz" onclick="vymazZaznamy()">Vymaž všechny poznámky</button>
+
+    <script>
+    function klik() {
+
+        if(document.getElementById("vstup").value != ""){
+            //vytvoří prázdnou proměnnou index
+            let index = localStorage.getItem("posledniIndex") || 0;
+            index++;
+
+            //nahraje data s daným klíčem do local storage
+            localStorage.setItem("prihradka-" + index, document.formik.vstup.value);
+            localStorage.setItem("posledniIndex", index);
+
+            //vymaže nepotřebný obsah
+            document.getElementById("vstup").value = "";
+
+            //zobrazí nové poznámky
+            zobrazText();
+        }
+
+    }
+
+    function zobrazText() {
+
+        //vymaže nepotřebný obsah
+        document.getElementById("vystup").innerHTML = "";
+
+        //vypíše text pomocí cyklu for
+        let posledniIndex = localStorage.getItem("posledniIndex");
+        for (let i = posledniIndex; i > 0; i--) {
+            let message = localStorage.getItem("prihradka-" + i);
+            if (message) {
+                let messageElement = document.createElement('div');
+                messageElement.textContent = `Poznámka ${i}: ${message}`;
+                document.getElementById("vystup").appendChild(messageElement);
+            }
+        }
+    }
+    function vymazZaznamy() {
+        localStorage.clear();
+        document.getElementById("vystup").innerHTML = "";
+    }
+</script>
+</body>
+</html>
