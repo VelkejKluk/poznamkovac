@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Local storage</title>
     <style>
         body{
             margin-left: 30px;
+        }
+        h1{
+            color:white;
         }
         #tlacitko{
             background: burlywood;
@@ -16,9 +20,11 @@
             border: 1px solid black;
         }
         #vystup{
-            border: 2px solid black;
+            border: 5px solid #212121;
             width: 30vh;
             height: auto;
+            color: #c5c5c5;
+            background-color: #212121;
         }
         #vymaz{
             margin-top: 10px;
@@ -35,8 +41,8 @@
         }
     </style>
 </head>
-<body onload="zobrazText()">
-    <h1>Poznámkovač</h1>
+<body onload="zobrazText()" class="bg">
+    <h1>Kočičkovač</h1>
     <form name="formik">
         <textarea name="vstup" id="vstup" placeholder="Zadej poznámku..."></textarea>
         <div id="tlacitko" onclick="klik()">Uložit</div>
@@ -44,7 +50,66 @@
     <p id="vystup"></p>
     <button id="vymaz" onclick="vymazZaznamy()">Vymaž všechny poznámky</button>
 
+
+    <div class="container">
+        <div class="cat">
+            <div class="head">
+                <div class="ears">
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="face">
+                    <div class="eyes">
+                        <div></div>
+                        <div></div>
+                    </div>
+
+                    <div class="nose">
+                        <div class="mustache">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <div class="mustache">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="body">
+                <div class="tail"></div>
+            </div>
+
+            <div class="sleep">
+                <div>z</div>
+                <div>z</div>
+                <div>z</div>
+                <div>z</div>
+                <div>z</div>
+                <div>z</div>
+            </div>
+        </div>
+    </div>
+    <div class="bg">
+
+    </div>
+
+
     <script>
+        var input = document.getElementById("vstup");
+
+        // Execute a function when the user presses a key on the keyboard
+        input.addEventListener("keypress", function(event) {
+            // If the user presses the "Enter" key on the keyboard
+            if (event.key === "Enter") {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("tlacitko").click();
+            }
+        });
     function klik() {
 
         if(document.getElementById("vstup").value != ""){
